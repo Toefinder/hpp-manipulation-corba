@@ -818,7 +818,10 @@ class ConstraintGraphFactory(GraphFactoryAbstract):
             len(sf.foliation.numConstraints) > 0
             and len(st.foliation.numConstraints) > 0
         ):
-            crossedFoliation = True
+            for constraint in (sf.foliation.numConstraints + st.foliation.numConstraints):
+                if "grasp" in constraint and "complement" in constraint:
+                    crossedFoliation = True
+                    break
 
         def _createWaypointState(name, constraints):
             self.graph.createNode(name, True)
